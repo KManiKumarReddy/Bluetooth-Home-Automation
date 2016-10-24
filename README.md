@@ -32,7 +32,7 @@ This repository consists of source code for an Android app as well as Arduino co
 * Use ON/OFF buttons to control the appliance
 
 ### Purpose
-Mini Project for Bachelor of Technology, CVR College of Engineering
+Mini Project for Bachelor of Technology, CVR College of Engineering, Hyderabad
 
 ### License
 This Source Code Form is subject to the terms of the Mozilla Public
