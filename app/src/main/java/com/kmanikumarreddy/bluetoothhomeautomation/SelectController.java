@@ -4,6 +4,7 @@ package com.kmanikumarreddy.bluetoothhomeautomation;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
@@ -39,15 +41,24 @@ public class SelectController extends AppCompatActivity {
         setContentView(R.layout.activity_select_controller);
 
         myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        myListView = (ListView)findViewById(R.id.deviceListView);
-        BTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        myListView.setAdapter(BTArrayAdapter);
 
-        pairedDevices = myBluetoothAdapter.getBondedDevices();
+        if (myBluetoothAdapter == null) {
+            Toast.makeText(getApplicationContext(),R.string.Bluetooth_NA, Toast.LENGTH_LONG).show();
+        }
+        else if (!myBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enableBtIntent);
+        }
+        else {
+            myListView = (ListView) findViewById(R.id.deviceListView);
+            BTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+            myListView.setAdapter(BTArrayAdapter);
+
+            pairedDevices = myBluetoothAdapter.getBondedDevices();
 
 
-        for(BluetoothDevice device : pairedDevices)
-            BTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            for (BluetoothDevice device : pairedDevices)
+                BTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 
 //        if (myBluetoothAdapter.isDiscovering()) {
 //            // the button is pressed when it discovers, so cancel the discovery
@@ -59,20 +70,21 @@ public class SelectController extends AppCompatActivity {
 //            registerReceiver(bReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 //        }
 
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @TargetApi(Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String[] deviceDetails = ((TextView)view).getText().toString().split("\n");
+            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @TargetApi(Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String[] deviceDetails = ((TextView) view).getText().toString().split("\n");
 //                BluetoothDevice device = myBluetoothAdapter.getRemoteDevice((deviceDetails[0]);
 //                device.createBond();
-                SharedPreferences preferences = getSharedPreferences("preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("controllerName", deviceDetails[0]);
-                editor.putString("controllerAddress", deviceDetails[1]);
-                editor.commit();
-                finish();
-            }
-        });
+                    SharedPreferences preferences = getSharedPreferences("preferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("controllerName", deviceDetails[0]);
+                    editor.putString("controllerAddress", deviceDetails[1]);
+                    editor.commit();
+                    finish();
+                }
+            });
+        }
     }
 }

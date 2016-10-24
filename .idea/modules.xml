@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BluetoothHomeAutomation.iml" filepath="$PROJECT_DIR$/BluetoothHomeAutomation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Bluetooth-Home-Automation.iml" filepath="$PROJECT_DIR$/Bluetooth-Home-Automation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

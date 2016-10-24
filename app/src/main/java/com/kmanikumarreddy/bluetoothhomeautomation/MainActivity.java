@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
@@ -54,25 +55,25 @@ public class MainActivity extends AppCompatActivity {
             device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
             try {
                 socket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             mBluetoothAdapter.cancelDiscovery();
             try {
                 socket.connect();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e(TAG, "socket connect failed: " + e.getMessage() + "\n");
                 try {
                     socket.close();
-                } catch (Exception e1) {
+                } catch (IOException e1) {
                     Log.e(TAG, "socket closing failed: " + e1.getMessage() + "\n");
                     Toast.makeText(getApplicationContext(), e1.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
             try {
                 os = socket.getOutputStream();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Log.e(TAG, "getting output stream failed: " + e.getMessage() + "\n");
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -85,29 +86,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (os != null) {
+        if (os != null && socket.isConnected()) {
             try {
                 os.flush();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Log.e(TAG, "flushing output stream failed: " + e.getMessage() + "\n");
                 Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }
-
         try {
-            socket.close();
-        } catch (Exception e) {
+            if(socket != null)
+                socket.close();
+        } catch (IOException e) {
             Log.e(TAG, "closing socket failed: " + e.getMessage() + "\n");
             Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
 
     public void sendSignal(View view) {
-        try {
-            os.write(view.getResources().getResourceName(view.getId()).getBytes());
+        if(socket.isConnected()) {
+            try {
+                os.write(view.getResources().getResourceName(view.getId()).getBytes());
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
-        catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(getBaseContext(), "Connect to the seleceted bluetooth device first", Toast.LENGTH_LONG).show();
         }
     }
 
