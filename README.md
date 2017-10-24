@@ -44,3 +44,8 @@ http://creativecommons.org/publicdomain/zero/1.0/
 
 ### Developed by
 Mani Kumar Reddy K, Pramod Deshpande and Mallikarjun K
+
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/43s1QU1xxshkCY2kZLfuonHu/KManiKumarReddy/Bluetooth-Home-Automation'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/43s1QU1xxshkCY2kZLfuonHu/KManiKumarReddy/Bluetooth-Home-Automation.svg' />
+</a>
