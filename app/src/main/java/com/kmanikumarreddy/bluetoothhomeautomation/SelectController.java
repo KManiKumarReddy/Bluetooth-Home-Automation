@@ -1,6 +1,11 @@
 
 package com.kmanikumarreddy.bluetoothhomeautomation;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,7 +13,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,13 +20,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class SelectController extends AppCompatActivity {
     private BluetoothAdapter myBluetoothAdapter;
     private Set<BluetoothDevice> pairedDevices;
     private ListView myListView;
-    private ArrayAdapter<String> BTArrayAdapter;
+    private ArrayAdapter<String> BTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
 //    final BroadcastReceiver bReceiver = new BroadcastReceiver() {
 //        public void onReceive(Context context, Intent intent) {
@@ -43,15 +51,12 @@ public class SelectController extends AppCompatActivity {
         myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (myBluetoothAdapter == null) {
-            Toast.makeText(getApplicationContext(),R.string.Bluetooth_NA, Toast.LENGTH_LONG).show();
-        }
-        else if (!myBluetoothAdapter.isEnabled()) {
+            Toast.makeText(getApplicationContext(), R.string.Bluetooth_NA, Toast.LENGTH_LONG).show();
+        } else if (!myBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivity(enableBtIntent);
-        }
-        else {
-            myListView = (ListView) findViewById(R.id.deviceListView);
-            BTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        } else {
+            myListView = (ListView) myListView.findViewById(R.id.deviceListView);
             myListView.setAdapter(BTArrayAdapter);
 
             pairedDevices = myBluetoothAdapter.getBondedDevices();
@@ -87,4 +92,5 @@ public class SelectController extends AppCompatActivity {
             });
         }
     }
+
 }
