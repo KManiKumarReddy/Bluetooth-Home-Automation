@@ -34,6 +34,20 @@ This repository consists of source code for an Android app as well as Arduino co
 ### Purpose
 Mini Project for Bachelor of Technology, CVR College of Engineering, Hyderabad
 
+
+### Android Application
+ - Features
+    1) Send Signals via Bluetooth.
+    2) List of Available Devices.
+    3) Switch On/Off any devices.
+  
+ - Tools
+    1) [Shared Preferences](https://developer.android.com/reference/android/content/SharedPreferences)
+    2) [Bluetooth Socket](https://developer.android.com/reference/android/bluetooth/BluetoothSocket)
+    3) [File](https://developer.android.com/reference/java/io/File)
+    4) [Media Store](https://developer.android.com/reference/android/provider/MediaStore)
+    5) [URI](https://developer.android.com/reference/android/net/Uri)
+
 ### License
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -44,6 +58,3 @@ http://creativecommons.org/publicdomain/zero/1.0/
 
 ### Developed by
 Mani Kumar Reddy K, Pramod Deshpande and Mallikarjun K
-
-
-
