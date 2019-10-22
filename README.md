@@ -1,35 +1,39 @@
 # Bluetooth-Home-Automation
 
 ### Description
-A solution to control home appliances using a Bluetooth device(Android Smartphone).
+A solution to control home appliances using a Bluetooth device (an Android smartphone).
 
 This repository consists of source code for an Android app as well as Arduino configuration.
 
 ### Requirements
-1. Arduino Development Board
-2. HC-05 or HC-06 Bluetooth Module
-3. 5V DC / 220V AC Relays
-4. Android Bluetooth Device
-5. Connecting Wires
+Before you begin, ensure you have the following:
 
-### Steps to setup Arduino
-* Upload the arduin code in repository root to Arduino controller
+1. Arduino development board
+2. HC-05 or HC-06 Bluetooth module
+3. 5V DC / 220V AC relays
+4. Android Bluetooth device
+5. Connecting wires.
+
+### Steps to set up Arduino
+Complete the following steps to set up Arduino. You can use the [Arduino documentation](https://www.arduino.cc/en/Guide/HomePage) for reference:
+
+* Upload the Arduino code in the repository root for the Arduino controller
 * Connect PIN 11(TX) pin of Arduino to RX pin of HC-05
 * Connect PIN 10(RX) pin of Arduino to TX pin of HC-05
 * Connect 5V of Arduino to V<sub>in</sub> of HC-05 and V<sub>cc</sub> of relays
 * Connect GND of Arduino to GND of HC-05 and GND of relays
 * Connect IN of relay to PIN 13 of Arduino board(you are free to use any pin and also multiple pins, just update the arduino code)
 * Connect 220V AC Line to Pole and Load(appliance) to NO of the relay
-* Power the Arduino board and you're ready to use. Refer to circuit diagram for setup
+* Power the Arduino board and you're ready to use. Refer to circuit diagram for setup:
 
 ### Circuit Diagram
 ![curcuit diagram](https://raw.githubusercontent.com/KManiKumarReddy/Bluetooth-Home-Automation/master/circuit.png)
 
 ### How to use
-* Build an install the app on an Android Bluetooth device.
-* Turn Bluetooth ON and pair with HC-05 using passcode 1234 (default passcode, you are free to change)
-* Open the app, click on select conntroller and select the HC-05
-* Use ON/OFF buttons to control the appliance
+* Build and install the app on an Android Bluetooth device.
+* Turn Bluetooth ON and pair with HC-05 using the default passcode '1234' (Feel free to change this).
+* Open the app, click on select controller and select the HC-05
+* Use ON/OFF buttons to control the appliance.
 
 ### Purpose
 Mini Project for Bachelor of Technology, CVR College of Engineering, Hyderabad
